@@ -361,7 +361,7 @@ function CopyDetailData(SourceDataset, SourceField,
  * Когда произойдет вызов оповещения NotifyObject'а, 
  * он вызовет оповещение у всех своих объктов.
  */
-function NotifyContainer() {
+function BTNotifyContainer() {
 
 	/**
 	 * Список всеъ объектов для оповещения
@@ -636,26 +636,26 @@ function GetWorkflowEngine() {
  * @param ParameterName - имя параметра в диаграме
  * @return Value
  */
-function GetParamValueFromBPItem(Item, ParameterName) {
+function GetBPItemValue(Item, ParameterName) {
 	if (!Assigned(Item)) {
-		BTCatchException("[GetParamValueFromBPItem].[Item] is null");
+		BTCatchException("[GetBPItemValue].[Item] is null");
 		return null;
 	}
 	var ParentItems = Item.ParentItems;
 	if (!Assigned(ParentItems)) {
-		BTCatchException("[GetParamValueFromBPItem].[Item.ParentItems] is null");
+		BTCatchException("[GetBPItemValue].[Item.ParentItems] is null");
 		return null;
 	}
 	
 	var ParentDiagram = ParentItems.ParentDiagram;
 	if (!Assigned(ParentDiagram)) {
-		BTCatchException("[GetParamValueFromBPItem].[Item.ParentItems.ParentDiagram] is null");
+		BTCatchException("[GetBPItemValue].[Item.ParentItems.ParentDiagram] is null");
 		return null;
 	}
 	
 	var Parameters = ParentDiagram.Parameters;
 	if (!Assigned(Parameters)) {
-		BTCatchException("[GetParamValueFromBPItem].[Item.ParentItems.ParentDiagram.Parameters] is null");
+		BTCatchException("[GetBPItemValue].[Item.ParentItems.ParentDiagram.Parameters] is null");
 		return null;
 	}
 	
@@ -670,30 +670,31 @@ function GetParamValueFromBPItem(Item, ParameterName) {
 
 /**
  * Устанавливает в параметр значение
- * @param ParameterName
+ * @param Item - элемент процеса
+ * @param ParameterName - имя параметра в диаграме
  * @param Value
  * @return Result {Boolean}
  */
-function SetParamValueFromBPItem(Item, ParameterName, Value) {
+function SetBPItemValue(Item, ParameterName, Value) {
 	if (!Assigned(Item)) {
-		BTCatchException("[SetParamValueFromBPItem].[Item] is null");
+		BTCatchException("[SetBPItemValue].[Item] is null");
 		return null;
 	}
 	var ParentItems = Item.ParentItems;
 	if (!Assigned(ParentItems)) {
-		BTCatchException("[SetParamValueFromBPItem].[Item.ParentItems] is null");
+		BTCatchException("[SetBPItemValue].[Item.ParentItems] is null");
 		return null;
 	}
 	
 	var ParentDiagram = ParentItems.ParentDiagram;
 	if (!Assigned(ParentDiagram)) {
-		BTCatchException("[SetParamValueFromBPItem].[Item.ParentItems.ParentDiagram] is null");
+		BTCatchException("[SetBPItemValue].[Item.ParentItems.ParentDiagram] is null");
 		return null;
 	}
 	
 	var Parameters = ParentDiagram.Parameters;
 	if (!Assigned(Parameters)) {
-		BTCatchException("[SetParamValueFromBPItem].[Item.ParentItems.ParentDiagram.Parameters] is null");
+		BTCatchException("[SetBPItemValue].[Item.ParentItems.ParentDiagram.Parameters] is null");
 		return null;
 	}
 	
