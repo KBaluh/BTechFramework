@@ -164,11 +164,11 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
  * Устанавливает в отфильтрированый датасет по ID, значение в поле.
  * SetDatasetValue('ds_Contact', ID_Контакта, 'Name', 'Значение которое запишется в поле Name');
  *
- * @param DatasetUSI
- * @param RecordID
- * @param FieldName
- * @param Value
- * @return Result {Object}
+ * @param DatasetUSI - USI датасета
+ * @param RecordID - ID записи
+ * @param FieldName - Название поля в которое запишется значение
+ * @param Value - Значение
+ * @return Result {Boolean} - результат сохранения
  */
 function SetDatasetValue(DatasetUSI, RecordID, FieldName, Value) {
 	var Parameters = new Object();
@@ -182,10 +182,10 @@ function SetDatasetValue(DatasetUSI, RecordID, FieldName, Value) {
  *	 'Name' : 'Значение которое запишется в поле Name',
  *	 'Description' : 'Значение которое запишется в поле Description'});
  * 
- * @param DatasetUSI
- * @param RecordID
- * @param Parameters
- * @return Result {Boolean}
+ * @param DatasetUSI - USI датасета
+ * @param RecordID - ID записи
+ * @param Parameters - объект параметров ключ-значение. Где ключ название поля.
+ * @return Result {Boolean} - результат сохранения
  */
 function SetDatasetValues(DatasetUSI, RecordID, Parameters) {
 	var Result = false;
@@ -212,10 +212,10 @@ function SetDatasetValues(DatasetUSI, RecordID, Parameters) {
 
 /**
  * Возращает значение из датасета. Фильтрирует по ID
- * @param DatasetUSI
- * @param RecordID
- * @param Field
- * @return Value - значение из поля
+ * @param DatasetUSI - USI датасета
+ * @param RecordID - ID записи
+ * @param Field - название поля в датасете для получения значения
+ * @return Value - значение
  */
 function GetDatasetValue(DatasetUSI, RecordID, Field) {
 	var Values = GetDatasetValues(DatasetUSI, RecordID, [Field]);
@@ -225,8 +225,8 @@ function GetDatasetValue(DatasetUSI, RecordID, Field) {
 
 /**
  * Возаращает значения из датасета. Фильтрирует по ID
- * @param DatasetUSI
- * @param RecordID
+ * @param DatasetUSI - USI датасета
+ * @param RecordID - ID записи
  * @param Parameters - массив полей
  * @return Values - объект значений (поле, значение)
  */
@@ -249,7 +249,7 @@ function GetDatasetValues(DatasetUSI, RecordID, Parameters) {
 
 /**
  * Вызывает у датасета метод Post
- * Если перед сохранением было состояние на редактирование
+ * Если перед сохранением было состояние на редактирование или добавление
  * тогда после сохранения он его вернет в состояние редактирования
  * @param Dataset - объект датасета который необходимо сохранить
  * @return Результат сохранения - true/false
@@ -299,7 +299,7 @@ function RefreshContainerDataset(WindowContainer) {
 }
 
 /**
- * Возвращает датасет контейнера
+ * Получает из контейнера содержащего окно датасет
  * @return Dataset - может вернуть null
  */
 function GetContainerDataset(WindowContainer) {
