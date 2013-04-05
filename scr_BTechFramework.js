@@ -680,7 +680,6 @@ function GetBPValue(Item, ParameterName) {
  * @param Item - элемент процеса
  * @param ParameterName - имя параметра в диаграме
  * @param Value - значение
- * @return Result {Boolean}
  */
 function SetBPValue(Item, ParameterName, Value) {
 	if (!Assigned(Item)) {
@@ -705,15 +704,12 @@ function SetBPValue(Item, ParameterName, Value) {
 		return null;
 	}
 	
-	var Result = false;
 	try {
 		Parameters.ItemsByName(ParameterName).Value = Value;
-		Result = true;
 	} catch (e) {
 		BTCatchException('Ошибка изменения значения параметру диаграмы: ' + 
 			ParameterName + ', значение: ' + Value);
 	}
-	return Result;	
 }
 
 //-----------------------------------------------------------------------------
