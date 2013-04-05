@@ -12,6 +12,8 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
 //	GetParamValueFromBPItem - GetBPValue
 //	SetParamValueFromBPItem - SetBPValue
 //	NotifyContainer - BTNotifyContainer
+// Удалены методы:
+// 	ExistDBFile
 //
 // Обновлены методы:
 // SetBPValue - больше не возвращает булевский результат
@@ -994,25 +996,8 @@ Files.prototype = {
 		var FilePatchArr = FilePatch.split('\\');
 		var FileName = FilePatchArr[FilePatchArr.length - 1];
 		return FileName;
-	},
-	
-	/**
-	 * Проверяет есть ли такой прикрепленный файл к записи
-	 * ВНИМАНИЕ! Функция не разработана
-	 */
-	ExistFile : function(FileName, RecordID, RecordField) {
-		return false;
 	}
 };
-
-/**
- * Проверяет есть ли такой прикрепленный файл к записи
- * ВНИМАНИЕ! Функция не разработана
- */
-function ExistDBFile(FilePatch, RecordID, RecordField) {
-	var FileName = DBFiles.ExtractFileName(FilePatch);
-	return DBFiles.ExistFile(FileName, RecordID, RecordField);	
-}
 
 /**
  * Загрузка файла в деталь "Файлы"
