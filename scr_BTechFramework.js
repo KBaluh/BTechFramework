@@ -2,7 +2,17 @@
 // BTechFramework - фреймворк для программирования в Terrasoft Administrator
 //-----------------------------------------------------------------------------
 
-var BTechFramework = { Version : 'v1.7.3', ModifyDate : '28.03.2013' };
+var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
+
+//-----------------------------------------------------------------------------
+// v1.8.0 - 05.04.2013
+// ОБНОВЛЕНИЕ НЕ СОВМЕСТИМО С ВЕРСИЯМИ НИЖЕ 1.8.0
+//
+// Переименованы методы:
+//	GetParamValueFromBPItem - GetBPValue
+//	SetParamValueFromBPItem - SetBPValue
+//	NotifyContainer - BTNotifyContainer
+//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // v1.7.3 - 28.03.2013
@@ -631,28 +641,28 @@ function GetWorkflowEngine() {
  * Возвращает значение параметра из элемента БП
  * @param Item - элемент процеса
  * @param ParameterName - имя параметра в диаграме
- * @return Value
+ * @return Value - значение
  */
-function GetBPItemValue(Item, ParameterName) {
+function GetBPValue(Item, ParameterName) {
 	if (!Assigned(Item)) {
-		BTCatchException("[GetBPItemValue].[Item] is null");
+		BTCatchException("[GetBPValue].[Item] is null");
 		return null;
 	}
 	var ParentItems = Item.ParentItems;
 	if (!Assigned(ParentItems)) {
-		BTCatchException("[GetBPItemValue].[Item.ParentItems] is null");
+		BTCatchException("[GetBPValue].[Item.ParentItems] is null");
 		return null;
 	}
 	
 	var ParentDiagram = ParentItems.ParentDiagram;
 	if (!Assigned(ParentDiagram)) {
-		BTCatchException("[GetBPItemValue].[Item.ParentItems.ParentDiagram] is null");
+		BTCatchException("[GetBPValue].[Item.ParentItems.ParentDiagram] is null");
 		return null;
 	}
 	
 	var Parameters = ParentDiagram.Parameters;
 	if (!Assigned(Parameters)) {
-		BTCatchException("[GetBPItemValue].[Item.ParentItems.ParentDiagram.Parameters] is null");
+		BTCatchException("[GetBPValue].[Item.ParentItems.ParentDiagram.Parameters] is null");
 		return null;
 	}
 	
@@ -669,29 +679,29 @@ function GetBPItemValue(Item, ParameterName) {
  * Устанавливает в параметр значение
  * @param Item - элемент процеса
  * @param ParameterName - имя параметра в диаграме
- * @param Value
+ * @param Value - значение
  * @return Result {Boolean}
  */
-function SetBPItemValue(Item, ParameterName, Value) {
+function SetBPValue(Item, ParameterName, Value) {
 	if (!Assigned(Item)) {
-		BTCatchException("[SetBPItemValue].[Item] is null");
+		BTCatchException("[SetBPValue].[Item] is null");
 		return null;
 	}
 	var ParentItems = Item.ParentItems;
 	if (!Assigned(ParentItems)) {
-		BTCatchException("[SetBPItemValue].[Item.ParentItems] is null");
+		BTCatchException("[SetBPValue].[Item.ParentItems] is null");
 		return null;
 	}
 	
 	var ParentDiagram = ParentItems.ParentDiagram;
 	if (!Assigned(ParentDiagram)) {
-		BTCatchException("[SetBPItemValue].[Item.ParentItems.ParentDiagram] is null");
+		BTCatchException("[SetBPValue].[Item.ParentItems.ParentDiagram] is null");
 		return null;
 	}
 	
 	var Parameters = ParentDiagram.Parameters;
 	if (!Assigned(Parameters)) {
-		BTCatchException("[SetBPItemValue].[Item.ParentItems.ParentDiagram.Parameters] is null");
+		BTCatchException("[SetBPValue].[Item.ParentItems.ParentDiagram.Parameters] is null");
 		return null;
 	}
 	
