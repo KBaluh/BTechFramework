@@ -17,6 +17,7 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
 //
 // Обновлены методы:
 // SetBPValue - больше не возвращает булевский результат
+// SetDatasetValue и SetDatasetValues - больше не возвращают булевский результат
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -42,7 +43,7 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
 
 //-----------------------------------------------------------------------------
 // v1.6.5 - 18.02.2013
-// Добавлены коментарии к некоторым методам.
+// Добавлены комментарии к некоторым методам.
 // Исправлен текст вывода сообщения ошибки в методе GetContainerDataset
 // Исправлена потенциальная ошибка в Ajax при создании нового запроса
 // Оптимизирован метод ChangeRightAccess, добавлен блок finally, что бы закрыть
@@ -70,14 +71,14 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
 // v1.4.0 - 24.09.2012
 // Добавлен метод ChangeRightAccess который изменят доступ к записи
 // Добавлен метод по загрузке файла в базу, без создания экземпляра класса
-// ExistDBFile - недоработаный метод по проверке файла в базе.
+// ExistDBFile - недоработанный метод по проверке файла в базе.
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // v1.3.3 - 06.09.2012
 // Права доступа - после удаления убран метод GotoNext
 // Работа с датами - исправлена ошибка при создании объекта даты
-// Убрано создание неиспользуемого кэша для датасета
+// Убрано создание не используемого кэша для датасета
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -94,7 +95,7 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
 // v1.3.0 - 15.08.2012
 //
 // Исправлено - Ajax
-// - Убрано создание XMLHttpRequest, так как это потдержка только в браузера,
+// - Убрано создание XMLHttpRequest, так как это поддержка только в браузера,
 //   	он вызывал ошибку и переходил на создание Msxml2.XMLHTTP.
 // - Добавлены константы REQUEST_STATUS_READY, REQUEST_STATUS_DONE отвечающие
 // 		за готовность ответа в response объекте
@@ -104,8 +105,6 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
 //
 // Добавлено - OpenOffice
 // - Класс по работе с OpenOffice Writer: создание и открытие документов 
-//
-// Удалено - Монада Maybe
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -120,7 +119,7 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
 //-----------------------------------------------------------------------------
 // v1.1.0 - 26.07.2012
 //
-// Добавлено - HashMap, для хранение данных: ключ - значение
+// Добавлено - HashMap, для хранения данных: ключ - значение
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -135,7 +134,7 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
 // - Получение датасета из контейнера окна
 //
 // Работа с датами
-// - Название месяцов на рус. и укр.
+// - Название месяцев на рус. и укр.
 // - Время
 //
 // Работа с набором прав доступа
@@ -149,7 +148,7 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
 // - Всех сервисов, датасетов, скриптов
 //
 // Исключения
-// - Вывод сообщения ошибки с названием функции в которой произошла ошибка
+// - Вывод сообщения ошибки с названием функции, в которой произошла ошибка
 //
 // UnitTest'ы
 // - Тестирование кода
@@ -168,14 +167,13 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
  *
  * @param DatasetUSI - USI датасета
  * @param RecordID - ID записи
- * @param FieldName - Название поля в которое запишется значение
+ * @param FieldName - Название поля, в которое запишется значение
  * @param Value - Значение
- * @return Result {Boolean} - результат сохранения
  */
 function SetDatasetValue(DatasetUSI, RecordID, FieldName, Value) {
 	var Parameters = new Object();
 	Parameters[FieldName] = Value;	
-	return SetDatasetValues(DatasetUSI, RecordID, Parameters);
+	SetDatasetValues(DatasetUSI, RecordID, Parameters);
 }
 
 /**
@@ -187,10 +185,8 @@ function SetDatasetValue(DatasetUSI, RecordID, FieldName, Value) {
  * @param DatasetUSI - USI датасета
  * @param RecordID - ID записи
  * @param Parameters - объект параметров ключ-значение. Где ключ название поля.
- * @return Result {Boolean} - результат сохранения
  */
 function SetDatasetValues(DatasetUSI, RecordID, Parameters) {
-	var Result = false;
 	var Dataset = DatasetCache_Get(DatasetUSI, 'ID');
 	ApplyDatasetFilter(Dataset, 'ID', RecordID, true);
 	Dataset.Open();
@@ -205,11 +201,9 @@ function SetDatasetValues(DatasetUSI, RecordID, Parameters) {
 	}
 	try {
 		Dataset.Post();
-		Result = true;
 	} catch (Ex) {
 		BTCatchException(Ex);
 	}
-	return Result;
 }
 
 /**
@@ -328,7 +322,7 @@ function GetContainerDataset(WindowContainer) {
 
 /**
  * Подключение детали в окно редактирования
- * @param WindowContainer - окно контейнер с реестром который необходимо подключить
+ * @param WindowContainer - окно контейнер с реестром, который необходимо подключить
  * @param DatasetUSI - датасет подключаемоего окна
  * @param FilterField - поле для фильтрации детали
  * @param RecordID - ID для фильтрации данных
@@ -346,7 +340,7 @@ function IncludeDetailEdit(WindowContainer, DatasetUSI, FilterField, RecordID) {
  * @param SourField - поле по которому найдены продукты (OpportunityID, InvoiceID, ...)
  * @param DestinationDatasetUSI - USI датасета в который произойдет копирование
  * @param DestinationField - поле по которому будет найдены продукты
- * @param DestinationRecordID - значение по которому будут искатся продукты
+ * @param DestinationRecordID - значение по которому будут искаться продукты
  */
 function CopyDetailData(SourceDataset, SourceField, 
 		DestinationDatasetUSI, DestinationField, DestinationRecordID) {
@@ -354,7 +348,7 @@ function CopyDetailData(SourceDataset, SourceField,
 	var DestinationDataset = Services.GetNewItemByUSI(DestinationDatasetUSI);
 
 	// Данный параметр нужно установить в датасет для того,
-	// что бы не вытягивались подчиненные продукты.
+	// что бы, не вытягивались подчиненные продукты.
 	// Из за того что мы и так копируем с подчинением, то выходили дубликаты.	
 	DestinationDataset.Attributes('IsTreeIgnore') = true;
 	
@@ -381,7 +375,7 @@ function BTNotifyContainer() {
 	var NotifyObjects = new Array();
 	
 	/**
-	 * Проверяет существует ли такой элемент уже в списке
+	 * Проверяет, существует ли такой элемент уже в списке
 	 * @param FindObject - искомый объект
 	 * @return Индект найденого объекта, если такого нету вернет -1
 	 */
@@ -433,7 +427,7 @@ function BTNotifyContainer() {
 }
 
 /**
- * NotifyObject - принимает оповещание. По умолчанию выводит сообщение в журнал сообщений.
+ * NotifyObject - принимает оповещение. По умолчанию выводит сообщение в журнал сообщений.
  * Можно переопределить метод Notify, для этого необходимо присвоить новый:
  *
  * var NotifyObject = new BTNotifyObject();
@@ -459,7 +453,7 @@ function BTNotifyObject() {
 //-----------------------------------------------------------------------------
 
 /**
- * Возращает серверную дату с временем
+ * Возвращает серверную дату с временем
  * @return DateTime
  */
 function GetServerDateTime() {
@@ -467,7 +461,7 @@ function GetServerDateTime() {
 }
 
 /**
- * Возращает серверную дату
+ * Возвращает серверную дату
  */
 function GetServerDate() {
 	var DateTime = GetSystemDateTime();	
@@ -526,11 +520,11 @@ function GetDateBeginEnd(DateValue) {
 }
 
 /**
- * Возращает название месяца.
+ * Возвращает  название месяца.
  * @param MonthIndex - номер месяца (нумерация с нуля)
  * @param Multipli - Множество
  * @param Launge - язык на котором вернет название месяца (RU, UA)
- *		по умолчанию испольузется русский.
+ *		по умолчанию используется русский.
  * @return Name {String} - название месяца
  */ 
 function GetMonthName(MonthIndex, Launge, Multipli) {
@@ -611,7 +605,7 @@ function testGetMonthName() {
  * Запускает БП, пример параметров:
  * Parameters = 
  * @param WorkflowUSI - USI диаграммы БП
- * @param Parameters - Объект содержащий свойства как поля со значениями:
+ * @param Parameters - Объект, содержащий свойства как поля со значениями:
  * 		{ "ContactID" : {123-123-123-123}, "AccountID" : {321-321-321-321} }
  */
 function RunWorkflow(WorkflowUSI, Parameters) {
@@ -644,8 +638,8 @@ function GetWorkflowEngine() {
 
 /**
  * Возвращает значение параметра из элемента БП
- * @param Item - элемент процеса
- * @param ParameterName - имя параметра в диаграме
+ * @param Item - элемент процесса
+ * @param ParameterName - имя параметра в диаграмме
  * @return Value - значение
  */
 function GetBPValue(Item, ParameterName) {
@@ -682,8 +676,8 @@ function GetBPValue(Item, ParameterName) {
 
 /**
  * Устанавливает в параметр значение
- * @param Item - элемент процеса
- * @param ParameterName - имя параметра в диаграме
+ * @param Item - элемент процесса
+ * @param ParameterName - имя параметра в диаграмму
  * @param Value - значение
  */
 function SetBPValue(Item, ParameterName, Value) {
@@ -789,7 +783,7 @@ function RemoveRightFull(TableUSI) {
 
 /**
  * Удаление группы/пользователя из доступов для одной записи
- * @param RecordID - запись к которой подчиняются доступы
+ * @param RecordID - запись, к которой подчиняются доступы
  * @param TableUSI - таблица прав (пример: tbl_ContactRight)
  * @AdminUnitID - ID записи из датасета ds_AdminUnit 
  */ 
@@ -811,7 +805,7 @@ function RemoveRightRecord(TableUSI, RecordID, AdminUnitID) {
 
 /**
  * Добавление прав доступа для одной записи
- * Если добавляеммая группа сещуствует, будут установлены новые
+ * Если добавляемая группа существует, будут установлены новые
  * @param TableUSI - таблица прав (пример: tbl_ContactRight)
  * @AdminUnitID - ID записи из датасета ds_AdminUnit
  * @param CanRead - доступ на чтение
@@ -873,7 +867,7 @@ function AddRightRecord(RecordID, TableUSI, AdminUnitID,
 
 /**
  * Добавление прав доступа всем записям из датасета.
- * Если добавляеммая группа сещуствует, будут установлены новые
+ * Если добавляемая группа существует, будут установлены новые
  * @param DatasetUSI - датасет которому будет добавлена группа
  * @param TableUSI - таблица прав (пример: tbl_ContactRight)
  * @AdminUnitID - ID записи из датасета ds_AdminUnit
@@ -1195,9 +1189,9 @@ Thunderbird.prototype = {
 	
 	/**
 	 *	To - Эмайл кому отправлять (MyEmail@mail.com)
-	 *	Subject - Тема сообщеиня (Dear friend!)
+	 *	Subject - Тема сообщения (Dear friend!)
 	 *	Body - Текст сообщения (Dear friend, i'm fine....)
-	 *	AttachmentList - массив который содержит ссылки на файлы в компьютере
+	 *	AttachmentList - массив, который содержит ссылки на файлы в компьютере
 	 */
 	SendSingleEmail: function(To, Subject, Body, AttachmentList)
 	{
@@ -1449,12 +1443,12 @@ var Ajax = new function() {
 	
 	/**
 	 * Метод отправки запроса
-	 * @param {String} url - Адресс отправки
+	 * @param {String} url - Адрес отправки
 	 * @param {String} send - Отправляемые параметры
 	 * @param {Function} callback - Отправляет в обратную функцию текст страницы
 	 * @param {Object} head - Заголовки
 	 * @param {Boolean} asunc - Синхроное / Асинхроное выполнение запросов
-	 * 							Поумолчанию Синхроный
+	 * 							По умолчанию синхронный
 	 */
 	this.send_request = function(url, send, callback, head, async) {
 		var request = this.get_request();
@@ -1545,7 +1539,7 @@ function OpenOffice() {
 	 */
 	var ThrowInstallError = function() {
 		BTCatchException("Не удалось получить OpenOffice. " +
-			"Проверьте правильность установки и установленных компоненто ActiveXObject.", 
+			"Проверьте правильность установки и установленных компонентов ActiveXObject.", 
 			"[OpenOffice.ThrowInstallError]");				
 	};
 	
