@@ -12,6 +12,9 @@ var BTechFramework = { Version : 'v1.8.0', ModifyDate : '05.04.2013' };
 //	GetParamValueFromBPItem - GetBPValue
 //	SetParamValueFromBPItem - SetBPValue
 //	NotifyContainer - BTNotifyContainer
+//
+// Обновлены методы:
+// SetBPValue - больше не возвращает булевский результат
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
