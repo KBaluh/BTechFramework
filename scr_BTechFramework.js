@@ -337,9 +337,6 @@ function CopyDetailData(SourceDataset, SourceField,
 		DestinationDatasetUSI, DestinationField, DestinationRecordID) {
 
 	var DestinationDataset = Services.GetNewItemByUSI(DestinationDatasetUSI);
-	var SourceParentItemIDFieldName = SourceField;
-	var DestinationParentItemIDFieldName = DestinationField;
-	var DestinationParentItemID = DestinationRecordID;
 
 	// Данный параметр нужно установить в датасет для того,
 	// что бы не вытягивались подчиненные продукты.
@@ -350,9 +347,9 @@ function CopyDetailData(SourceDataset, SourceField,
 	Script.ScriptControl.Run('CopyTreeDetail',
 		SourceDataset,
 		DestinationDataset,
-		SourceParentItemIDFieldName,
-		DestinationParentItemIDFieldName,
-		DestinationParentItemID);
+		SourceField,
+		DestinationField,
+		DestinationRecordID);
 }
 
 /**
